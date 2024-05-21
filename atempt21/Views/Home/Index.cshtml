@@ -1,14 +1,51 @@
-﻿@{
+﻿@model int  // We only need to pass userID to this view
+
+@{
     ViewData["Title"] = "Home Page";
+    var userID = ViewData["userID"];
+    var products = ViewData["Products"] as List<atempt21.Models.productTable>;
 }
-<head>
-    <h1>
-        Welcome to khameloCraft
-    </h1>
-    <h2>
-        Please enjoy our products
-    </h2>
-</head>
+
 <div class="text-center">
-   <img src= "~/img/handcrafted.jpg" alt="">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<h2>Welcome to the Home Page!</h2>
+
+@if (userID != null)
+{
+    <p>User ID: @userID</p>
+}
+
+<h2>All Products</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Availability</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Category</td>
+                <td>@product.Availability</td>
+                <td>
+                    <form asp-controller="Transaction" asp-action="PlaceOrder" method="post">
+                        <input type="hidden" name="userID" value="@userID" />
+                        <input type="hidden" name="productID" value="@product.ProductID" />
+                        <button type="submit">Place Order</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

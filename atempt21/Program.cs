@@ -1,4 +1,4 @@
-namespace atempt21
+﻿namespace atempt21
 {
     public class Program
     {
@@ -8,6 +8,16 @@ namespace atempt21
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //------------------------------
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(Options =>
+            { 
+            Options.IdleTimeout = TimeSpan.FromMinutes(120);
+        });
+
+
 
             var app = builder.Build();
 
@@ -21,6 +31,8 @@ namespace atempt21
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 
