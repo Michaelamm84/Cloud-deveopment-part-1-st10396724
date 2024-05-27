@@ -1,0 +1,39 @@
+﻿@model List<atempt21.Models.TransactionTable>
+@using atempt21.Models
+
+
+<h2>My Orders</h2>
+
+<table>
+    <thead>
+        <tr>
+            
+            <th>Product Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                
+                <td>@GetProductName(transaction.ProductID)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@functions {
+    public string GetProductName(int productID)
+    {
+        string productName = string.Empty;
+
+        
+        productTable product = productTable.GetProductByID(productID);
+        if (product != null)
+        {
+            productName = product.Name;
+        }
+
+        return productName;
+    }
+}

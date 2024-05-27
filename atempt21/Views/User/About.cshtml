@@ -3,17 +3,84 @@
     ViewData["Title"] = "Sign Up";
 }
 
-<h1>Sigh into Khumalo Craft</h1>
-<p>you need to sign up in the website for the application.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign up for Khumalo Craft</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .alert {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            color: green;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
 <body>
+    <h1>Sign up for Khumalo Craft</h1>
+
+    @if (Context.Request.Method == "POST")
+    {
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert">@ViewBag.ErrorMessage</div>
+        }
+        else
+        {
+            <div class="success-message">
+                <p>Successful sign up</p>
+            </div>
+        }
+    }
+
     <form action="About" method="post">
         <p>Sign Up</p>
         <input type="text" name="Name" placeholder="Name" required>
         <input type="text" name="Surname" placeholder="Surname" required>
         <input type="text" name="Password" placeholder="Password" required>
         <input type="text" name="Email" placeholder="example@gmail.com" required>
-       
+
         <button type="submit">Submit</button>
     </form>
 </body>
+</html>

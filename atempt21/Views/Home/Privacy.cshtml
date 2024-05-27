@@ -1,18 +1,85 @@
 ﻿@model atempt21.Models.userTable
+
 @{
-    ViewData["Title"] = "Sign Up";
+    ViewData["Title"] = "Login";
 }
 
-<h1>Login into Khumalo Craft</h1>
-<p>you need to sign up in the website for the application.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login into Khumalo Craft</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            color: green;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
 <body>
-    <form action="/User/About" method="post">
-        <p>Sign Up</p>
-        <input type="text" name="Name" placeholder="Name" required>
-        <input type="text" name="Surname" placeholder="Surname" required>
-        <input type="text" name="Email" placeholder="example@gmail.com" required>
-        <input type="text" name="Password" placeholder="Password" required>
+    <h1>Login into Khumalo Craft</h1>
+    <p>Please log into Khumalo Craft.</p>
+
+    @if (Context.Request.Method == "POST")
+    {
+        <p class="error-message">@ViewBag.ErrorMessage ////// @ViewBag.SuccessMessage</p>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <p>Failed to log in.</p>
+        }
+        else
+        {
+            <p class="success-message">You've logged in successfully.</p>
+        }
+    }
+
+    <form action="/Home/Privacy" method="post">
+        <p>Login</p>
+        <input type="text" name="Email" placeholder="Email" required>
+        <input type="password" name="Password" placeholder="Password" required>
+
         <button type="submit">Submit</button>
     </form>
 </body>
+</html>

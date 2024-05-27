@@ -2,8 +2,14 @@
 @model atempt21.Models.productTable
 @{
     ViewData["Title"] = "MyWork";
+    var userID = ViewData["userID"];
 
 
+}
+
+@if (userID != null)
+{
+    <p>User ID: @userID</p>
 }
 
 <h1>MyWork</h1>

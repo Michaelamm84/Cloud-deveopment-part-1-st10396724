@@ -11,8 +11,31 @@ namespace atempt21.Controllers
         [HttpPost]
         public ActionResult About(userTable Users)
         {
-            var result = usrtbl.insert_User(Users);
-            return RedirectToAction("Privacy", "Home");
+
+            if (HttpContext.Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    int rowsAffected = usrtbl.insert_User(Users);
+                    if (rowsAffected > 0)
+                    {
+                        TempData["SuccessMessage"] = "Sign up successful!";
+                        return View();
+                    }
+                    else
+                    {
+                        
+                        ViewBag.ErrorMessage = "Failed to sign up. Please try again.";
+                    }
+                }
+
+
+            }
+           
+
+            return View(Users);
+            
+             
         }
 
         
@@ -22,7 +45,8 @@ namespace atempt21.Controllers
         {
             return View(usrtbl);
         }
-
+        
+       
 
     }
 }

@@ -77,5 +77,52 @@ public class productTable
 
         return products;
     }
+    public int GetProductId(string productName)
+    {
+        int productId = 0;
+
+        using (SqlConnection con = new SqlConnection(con_string))
+        {
+            string sql = "SELECT ProductID FROM ProductTable WHERE Name = @Name";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@Name", productName);
+
+            con.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                productId = Convert.ToInt32(rdr["ProductID"]);
+            }
+        }
+
+        return productId;
+    }
+
+    public static productTable GetProductByID(int productID)
+    {
+        productTable product = null;
+
+        using (SqlConnection con = new SqlConnection(con_string))
+        {
+            string sql = "SELECT * FROM ProductTable WHERE Product_id = @ProductID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@ProductID", productID);
+
+            con.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                product = new productTable();
+                product.ProductID = Convert.ToInt32(rdr["Product_id"]);
+
+                product.Name = rdr["Name"].ToString();
+                product.Price = rdr["Price"].ToString();
+                product.Category = rdr["Category"].ToString();
+                product.Availability = rdr["Availability"].ToString();
+            }
+        }
+
+        return product;
+    }
 
 }
